@@ -1,9 +1,18 @@
-
+//=============================================================
+var express = require('express');
+const request = require('request');
+const config = require('./config.json');
+//=============================================================
+const LINE_URL = 'https://api.line.me/v2/bot/message/reply'
+const TOKEN = config.TOKEN;
+const BOXOFFICE_URL = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json'
+const KOFIC_KEY = config.KOFIC_KEY;
+//=============================================================
 
 // 어제 기준 영화 순위(1위 ~ 5위) 출력
 exports.ShowYesterdayRank = function(replyToken) {
     
-    var yesterday = GetYesterday();
+    var yesterday = exports.GetYesterday();
     
     request.get(
         {
