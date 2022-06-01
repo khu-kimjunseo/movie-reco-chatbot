@@ -23,6 +23,23 @@ app.use(bodyParser.json());
 // ===============================================
 
 
+// [MAIN] CLASSIFY THE MESSAGE
+function ClassifyMessage(replyToken, imessage){
+
+    var message = String(imessage);
+
+    if(message.includes('최신') || message.includes('순위') || message.includes('오늘')) {
+        showYesterdayRank(replyToken);
+    } else if (message.includes('줄거리')) {
+        // (예시) 영화 줄거리 출력
+    }
+    else if (message.includes('목록')) {
+        // (예시) 영화 목록 출력
+    }
+}
+
+
+// 사용자의 LINE message 수신
 app.post('/hook', function (req, res) {
 
     var eventObj = req.body.events[0];
@@ -33,27 +50,29 @@ app.post('/hook', function (req, res) {
     console.log('[request source] ', eventObj.source);
     console.log('[request message]', eventObj.message);
 
-    showYesterdayRank(eventObj.replyToken, eventObj.message.text);
+    ClassifyMessage(eventObj.replyToken, eventObj.message.text);
+
     res.sendStatus(200);
 });
 
-// 해당 날짜 영화 순위 출력 함수
-// 입력 인자 중 message 에는 어제 날짜 들어감(ex: 20220528)
-function showYesterdayRank(replyToken, message) {
 
-    // 한국영화진흥위원회 API는 get 형태로 호출
+// 어제 영화 순위 1위 ~ 5위 출력
+function showYesterdayRank(replyToken) {
+
+    var yesterday = GetYesterday();
     request.get(
         {
-            url: BOXOFFICE_URL+`?key=${KOFIC_KEY}&targetDt=${message}`,
+            url: BOXOFFICE_URL+`?key=${KOFIC_KEY}&targetDt=${yesterday}`,
             json:true
         },(error, response, body) => {
             if(!error && response.statusCode == 200) {
                 console.log(body.boxOfficeResult);
                 
-                var transMessage_1 = body.boxOfficeResult.dailyBoxOfficeList[0].movieNm;
-                var transMessage_2 = body.boxOfficeResult.dailyBoxOfficeList[1].movieNm;
-                var transMessage_3 = body.boxOfficeResult.dailyBoxOfficeList[2].movieNm;
-                var transMessage_4 = body.boxOfficeResult.dailyBoxOfficeList[3].movieNm;
+                var movie_1st = body.boxOfficeResult.dailyBoxOfficeList[0].movieNm;
+                var movie_2nd = body.boxOfficeResult.dailyBoxOfficeList[1].movieNm;
+                var movie_3rd = body.boxOfficeResult.dailyBoxOfficeList[2].movieNm;
+                var movie_4th = body.boxOfficeResult.dailyBoxOfficeList[3].movieNm;
+                var movie_5th = body.boxOfficeResult.dailyBoxOfficeList[4].movieNm;
 
                 request.post(
                     {
@@ -66,7 +85,12 @@ function showYesterdayRank(replyToken, message) {
                             "messages":[
                                 {
                                     "type":"text",
-                                    "text": `1위 : ${transMessage_1}\n2위 : ${transMessage_2}\n3위 : ${transMessage_3}\n4위 : ${transMessage_4}`
+                                    "text": 
+                                    `1위 : ${movie_1st}\n`+
+                                    `2위 : ${movie_2nd}\n`+
+                                    `3위 : ${movie_3rd}\n`+
+                                    `4위 : ${movie_4th}\n`+
+                                    `5위 : ${movie_5th}\n`
                                 }
                             ]
                         }
@@ -77,6 +101,22 @@ function showYesterdayRank(replyToken, message) {
         });
 }
 
+
+// 어제 날짜를 YYYYMMDD 형식(type: string)으로 반환하는 함수
+function GetYesterday() {
+    
+    var today = new Date();
+    var yesterday = new Date(today.setDate(today.getDate() - 1));
+    
+    var year = yesterday.getFullYear();
+    var month = ('0' + (yesterday.getMonth() + 1)).slice(-2);
+    var day = ('0' + yesterday.getDate()).slice(-2);
+
+    return (year + month + day);
+}
+
+
+// ※ WARNING: DO NOT TOUCH THIS CODE SECTION
 try {
     const option = {
       ca: fs.readFileSync('/etc/letsencrypt/live/' + domain +'/fullchain.pem'),
