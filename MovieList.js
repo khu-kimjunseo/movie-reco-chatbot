@@ -1,13 +1,13 @@
 var express = require('express');
 const request = require('request');
+var config = require('./config.json');
 const TARGET_URL = 'https://api.line.me/v2/bot/message/reply'
-const TOKEN = ''
+const TOKEN = config.TOKEN;
 const KOFIC_URL = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json'
-const KOFIC_KEY = ''
 const fs = require('fs');
 const path = require('path');
 const HTTPS = require('https');
-const domain = ""
+const domain = config.domain;
 const sslport = 23023;
 const bodyParser = require('body-parser');
 var app = express();
@@ -39,7 +39,7 @@ function trans(replyToken, message) {
     my_message = copied_message.split(',');
     request.get(
         {
-            url: KOFIC_URL+`?key=${KOFIC_KEY}&openStartDt=${my_message[0]}&openEndDt=${my_message[1]}}`,
+            url: KOFIC_URL+`?key=${config.KOFIC_KEY}&openStartDt=${my_message[0]}&openEndDt=${my_message[1]}}`,
             json:true
         },(error, response, body) => {
             if(!error && response.statusCode == 200) {
