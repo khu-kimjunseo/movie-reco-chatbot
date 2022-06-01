@@ -18,28 +18,24 @@ app.post('/hook', function (req, res) {
     var eventObj = req.body.events[0];
     var source = eventObj.source;
     var message = eventObj.message;
-
+    
     // request log
     console.log('======================', new Date() ,'======================');
     console.log('[request]', req.body);
     console.log('[request source] ', eventObj.source);
     console.log('[request message]', eventObj.message);
 
-    trans(eventObj.replyToken, eventObj.message.text);
+    movielist(eventObj.replyToken, eventObj.message.text);
     
-
     res.sendStatus(200);
 });
 
-// message insert: Inquiry start opening year,Inquiry end opening year
-// ex) 2019,2020
-function trans(replyToken, message) {
-    var my_message, copied_message;
-    copied_message = message
-    my_message = copied_message.split(',');
+
+function movielist(replyToken, message) {
+    var encodedMessage = encodeURI(message);
     request.get(
-        {
-            url: KOFIC_URL+`?key=${config.KOFIC_KEY}&openStartDt=${my_message[0]}&openEndDt=${my_message[1]}}`,
+        {   
+            url: KOFIC_URL+`?key=${config.KOFIC_KEY}&movieNm=${encodedMessage}`,
             json:true
         },(error, response, body) => {
             if(!error && response.statusCode == 200) {
@@ -48,13 +44,14 @@ function trans(replyToken, message) {
                 for (let i = 0; i < body.movieListResult.movieList.length; i ++){
                     movieNm = body.movieListResult.movieList[i].movieNm;
                     prdtYear = body.movieListResult.movieList[i].prdtYear;
+                    movieCd = body.movieListResult.movieList[i].movieCd;
                     if(body.movieListResult.movieList[i].directors.length === 0){
                         directors = "감독정보없음"
                     }
                     else{
                         directors = body.movieListResult.movieList[i].directors[0].peopleNm;
                     }
-                    result += '제목: ' + movieNm + `(${prdtYear})` + '\n' + '감독: ' + directors +  '\n';
+                    result += '제목: ' + movieNm + `(${prdtYear})` + '\n' + '감독: ' + directors +  '\n' + '영화코드: ' + movieCd + '\n';
                 }
                 request.post(
                     {
