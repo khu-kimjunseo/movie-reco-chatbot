@@ -10,7 +10,6 @@ const KOFIC_KEY = config.KOFIC_KEY;
 //=============================================================
 
 export function MovieInfo(replyToken, message) {
-
     request.get(
         {
             url: KOFIC_URL+`?key=${KOFIC_KEY}&movieCd=${message}`,
@@ -19,6 +18,21 @@ export function MovieInfo(replyToken, message) {
             if(!error && response.statusCode == 200) {
                 console.log(body.movieInfoResult);
                 var MovieInfo = body.movieInfoResult.movieInfo;
+                var MovieName = MovieInfo.movieNm;
+                var MovieDate = `${MovieInfo.openDt.slice(0,4)}년 ${MovieInfo.openDt.slice(4,6)}월 ${MovieInfo.openDt.slice(6,8)}일`;
+                var MovieTime = MovieInfo.showTm;
+                var MovieGenres = [];
+                for(var i in MovieInfo.genres)
+                {
+                    MovieGenres.push(MovieInfo.genres[i].genreNm);
+                }
+                var MovieDirec = MovieInfo.directors[0].peopleNm;
+                var MovieActors = [];
+                for(var i=0; i<MovieInfo.actors.length && i<5; i++)
+                {
+                    MovieActors[i] = MovieInfo.actors[i].peopleNm;
+                }
+
                 request.post(
                     {
                         url: TARGET_URL,
@@ -30,7 +44,7 @@ export function MovieInfo(replyToken, message) {
                             "messages":[
                                 {
                                     "type":"text",
-                                    "text":`영화명: ${MovieInfo.movieNm}\n개봉날짜: ${MovieInfo.prdtYear}\n상영시간: ${MovieInfo.showTm}분\n장르: ${MovieInfo.genres[0].genreNm}\n감독: ${MovieInfo.directors[0].peopleNm}\n출연배우: ${MovieInfo.actors[0].peopleNm},${MovieInfo.actors[1].peopleNm},${MovieInfo.actors[2].peopleNm},${MovieInfo.actors[3].peopleNm}`
+                                    "text":`영화명: ${MovieName}\n개봉날짜: ${MovieDate}\n상영시간: ${MovieTime}분\n장르: ${MovieGenres}\n감독: ${MovieDirec}\n출연배우: ${MovieActors}`
                                 }
                             ]
                         }
