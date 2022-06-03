@@ -22,11 +22,26 @@ exports.ShowYesterdayRank = function(replyToken) {
             if(!error && response.statusCode == 200) {
                 console.log(body.boxOfficeResult);
                 
-                var movie_1st = body.boxOfficeResult.dailyBoxOfficeList[0].movieNm;
-                var movie_2nd = body.boxOfficeResult.dailyBoxOfficeList[1].movieNm;
-                var movie_3rd = body.boxOfficeResult.dailyBoxOfficeList[2].movieNm;
-                var movie_4th = body.boxOfficeResult.dailyBoxOfficeList[3].movieNm;
-                var movie_5th = body.boxOfficeResult.dailyBoxOfficeList[4].movieNm;
+                var movieName = [];
+                movieName[0] = body.boxOfficeResult.dailyBoxOfficeList[0].movieNm;
+                movieName[1] = body.boxOfficeResult.dailyBoxOfficeList[1].movieNm;
+                movieName[2] = body.boxOfficeResult.dailyBoxOfficeList[2].movieNm;
+                movieName[3] = body.boxOfficeResult.dailyBoxOfficeList[3].movieNm;
+                movieName[4] = body.boxOfficeResult.dailyBoxOfficeList[4].movieNm;
+
+                var movieOpenDt = [];
+                movieOpenDt[0] = body.boxOfficeResult.dailyBoxOfficeList[0].openDt;
+                movieOpenDt[1] = body.boxOfficeResult.dailyBoxOfficeList[1].openDt;
+                movieOpenDt[2] = body.boxOfficeResult.dailyBoxOfficeList[2].openDt;
+                movieOpenDt[3] = body.boxOfficeResult.dailyBoxOfficeList[3].openDt;
+                movieOpenDt[4] = body.boxOfficeResult.dailyBoxOfficeList[4].openDt;
+
+                var movieAudiAcc = [];
+                movieAudiAcc[0] = exports.numberWithCommas(body.boxOfficeResult.dailyBoxOfficeList[0].audiAcc);
+                movieAudiAcc[1] = exports.numberWithCommas(body.boxOfficeResult.dailyBoxOfficeList[1].audiAcc);
+                movieAudiAcc[2] = exports.numberWithCommas(body.boxOfficeResult.dailyBoxOfficeList[2].audiAcc);
+                movieAudiAcc[3] = exports.numberWithCommas(body.boxOfficeResult.dailyBoxOfficeList[3].audiAcc);
+                movieAudiAcc[4] = exports.numberWithCommas(body.boxOfficeResult.dailyBoxOfficeList[4].audiAcc);
 
                 request.post(
                     {
@@ -40,11 +55,11 @@ exports.ShowYesterdayRank = function(replyToken) {
                                 {
                                     "type":"text",
                                     "text": 
-                                    `1위 : ${movie_1st}\n`+
-                                    `2위 : ${movie_2nd}\n`+
-                                    `3위 : ${movie_3rd}\n`+
-                                    `4위 : ${movie_4th}\n`+
-                                    `5위 : ${movie_5th}\n`
+                                    `[1위]\n영화제목 : ${movieName[0]}\n개봉일 : ${movieOpenDt[0]}\n누적 관객 수 : ${movieAudiAcc[0]}명\n\n`+
+                                    `[2위]\n영화제목 : ${movieName[1]}\n개봉일 : ${movieOpenDt[1]}\n누적 관객 수 : ${movieAudiAcc[1]}명\n\n`+
+                                    `[3위]\n영화제목 : ${movieName[2]}\n개봉일 : ${movieOpenDt[2]}\n누적 관객 수 : ${movieAudiAcc[2]}명\n\n`+
+                                    `[4위]\n영화제목 : ${movieName[3]}\n개봉일 : ${movieOpenDt[3]}\n누적 관객 수 : ${movieAudiAcc[3]}명\n\n`+
+                                    `[5위]\n영화제목 : ${movieName[4]}\n개봉일 : ${movieOpenDt[4]}\n누적 관객 수 : ${movieAudiAcc[4]}명\n\n`
                                 }
                             ]
                         }
@@ -68,3 +83,9 @@ exports.GetYesterday = function() {
 
     return (year + month + day);
 }  
+
+
+// 숫자 사이에 콤마(,) 찍고 반환하는 함수(입력, 출력 모두 문자열)
+exports.numberWithCommas = function(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
