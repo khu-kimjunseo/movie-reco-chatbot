@@ -3,7 +3,7 @@ const request = require('request');
 var config = require('./config.json');
 const TARGET_URL = 'https://api.line.me/v2/bot/message/reply'
 const TOKEN = config.TOKEN;
-const KOFIC_URL_MovieList = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json'
+const KOFIC_URL = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest'
 const bodyParser = require('body-parser');
 
 //Enter a movie title in the message variable.
@@ -12,7 +12,7 @@ exports.movielist = function (replyToken, message) {
     var encodedMessage = encodeURI(message);
     request.get(
         {   
-            url: KOFIC_URL_MovieList+`?key=${config.KOFIC_KEY_MovieList}&movieNm=${encodedMessage}`,
+            url: KOFIC_URL+`/movie/searchMovieList.json?key=${config.KOFIC_KEY_MovieList}&movieNm=${encodedMessage}`,
             json:true
         },(error, response, body) => {
             if(!error && response.statusCode == 200) {
