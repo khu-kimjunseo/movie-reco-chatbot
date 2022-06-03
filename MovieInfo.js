@@ -5,14 +5,14 @@ const config = require('./config.json');
 //=============================================================
 const LINE_URL = 'https://api.line.me/v2/bot/message/reply'
 const TOKEN = config.TOKEN;
-const BOXOFFICE_URL = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json'
+const KOFIC_URL = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest'
 const KOFIC_KEY = config.KOFIC_KEY;
 //=============================================================
 
 export function MovieInfo(replyToken, message) {
     request.get(
         {
-            url: KOFIC_URL+`?key=${KOFIC_KEY}&movieCd=${message}`,
+            url: KOFIC_URL+`/movie/searchMovieInfo.json?key=${KOFIC_KEY}&movieCd=${message}`,
             json:true
         },(error, response, body) => {
             if(!error && response.statusCode == 200) {
@@ -53,5 +53,4 @@ export function MovieInfo(replyToken, message) {
                     });
             }
         });
-
 }
