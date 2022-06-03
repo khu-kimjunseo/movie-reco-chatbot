@@ -6,7 +6,7 @@ const dailyBoxOfficeList = require('./DailyBoxOfficeList.js');
 //=============================================================
 const LINE_URL = 'https://api.line.me/v2/bot/message/reply'
 const TOKEN = config.TOKEN;
-const BOXOFFICE_URL = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json'
+const KOFIC_URL = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest';
 const KOFIC_KEY = config.KOFIC_KEY;
 //=============================================================
 const fs = require('fs');
