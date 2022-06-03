@@ -6,6 +6,8 @@ const TOKEN = config.TOKEN;
 const KOFIC_URL_MovieList = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json'
 const bodyParser = require('body-parser');
 
+//Enter a movie title in the message variable.
+//It will then return the movie title, director, and actor information to Line Messenger.
 exports.movielist = function (replyToken, message) {
     var encodedMessage = encodeURI(message);
     request.get(
