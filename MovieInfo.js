@@ -9,7 +9,7 @@ const KOFIC_URL = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest'
 const KOFIC_KEY = config.KOFIC_KEY;
 //=============================================================
 
-export function MovieInfo(replyToken, message) {
+exports.MovieInfo = function(replyToken, message) {
     request.get(
         {
             url: KOFIC_URL+`/movie/searchMovieInfo.json?key=${KOFIC_KEY}&movieCd=${message}`,
@@ -35,7 +35,7 @@ export function MovieInfo(replyToken, message) {
 
                 request.post(
                     {
-                        url: TARGET_URL,
+                        url: LINE_URL,
                         headers: {
                             'Authorization': `Bearer ${TOKEN}`
                         },
