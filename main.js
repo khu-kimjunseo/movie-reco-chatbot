@@ -18,7 +18,9 @@ const bodyParser = require('body-parser');
 var app = express();
 app.use(bodyParser.json());
 //=============================================================
-
+var BoxOffice = require('./DailyBoxOfficeList.js');
+var MovieList = require('./MovieList.js');
+var MovieInfo = require('./MovieInfo.js');
 
 // RECEIVE MESSAGE
 app.post('/hook', function (req, res) {
@@ -31,25 +33,24 @@ app.post('/hook', function (req, res) {
   console.log('[request source] ', eventObj.source);
   console.log('[request message]', eventObj.message);
 
-  ClassifyMessage(eventObj.replyToken, eventObj.message.text);
+  Response(eventObj.replyToken, eventObj.message.text);
 
   res.sendStatus(200);
 });
 
 
-// CLASSIFY MESSAGE
-function ClassifyMessage(replyToken, imessage){
-
-  var message = String(imessage);
-
+// RESPONSE TO MESSAGE
+function Response(replyToken, message){
   // 사용자가 보낸 라인 메시지 문자열 안에 특정 문자열이 있으면, 특정 함수 실행
   if(message.includes('최신') || message.includes('순위') || message.includes('오늘') || message.includes('추천')) {
-    dailyBoxOfficeList.ShowYesterdayRank(replyToken);
-  } else if (message.includes('줄거리')) {
+    BoxOffice.ShowYesterdayRank(replyToken);
+  } else if (isNaN(message) === false && message.length === 8) {
       // (예시) 영화 줄거리 출력
+      MovieInfo.MovieInfo(replyToken, message);
   }
-  else if (message.includes('목록')) {
+  else if (typeof(message) === 'string') {
       // (예시) 영화 목록 출력
+      MovieList.movielist(replyToken, message);
   }
 }
 
