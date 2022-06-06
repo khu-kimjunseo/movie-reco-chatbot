@@ -3,7 +3,7 @@ var express = require('express');
 const request = require('request');
 const config = require('./config.json');
 //=============================================================
-const LINE_URL = 'https://api.line.me/v2/bot/message/reply'
+const LINE_URL = 'https://api.line.me/v2/bot/message';
 const TOKEN = config.TOKEN;
 const KOFIC_URL = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest';
 const KOFIC_KEY = config.KOFIC_KEY;
@@ -20,17 +20,41 @@ app.use(bodyParser.json());
 var BoxOffice = require('./DailyBoxOfficeList.js');
 var MovieList = require('./MovieList.js');
 var MovieInfo = require('./MovieInfo.js');
+var MovieReco = require('./MovieRecommend.js');
+var Exception = require('./Exception.js');
+//=============================================================
+const user_id = config.USER_ID;
+//=============================================================
+
+
+// SHOW MENU
+function ShowMenu() {
+  request.post({
+    url: LINE_URL + '/push',
+    headers: {
+      'Authorization': `Bearer ${TOKEN}`
+    },
+    json: {
+      "to": `${USER_ID}`,
+      "messages": [
+        {
+          "type": "text",
+          "text": "0번 : 메뉴 출력\n1번 : 최신영화 추천\n2번 : 장르별 영화 추천\n3번 : 영화 검색하기\n영화코드 입력 : 영화 상세정보 조회"
+        }
+      ]
+    }
+  }, (error, response, body) => {
+    console.log(body)
+  });
+}
+
+ShowMenu();
+
 
 // RECEIVE MESSAGE
 app.post('/hook', function (req, res) {
 
   var eventObj = req.body.events[0];
-
-  // console.log for debugging
-  console.log('======================', new Date(), '======================');
-  console.log('[request]', req.body);
-  console.log('[request source] ', eventObj.source);
-  console.log('[request message]', eventObj.message);
 
   Response(eventObj.replyToken, eventObj.message.text);
 
@@ -38,18 +62,38 @@ app.post('/hook', function (req, res) {
 });
 
 
+var flag_2 = 0;
+var flag_3 = 0;
+
 // RESPONSE TO MESSAGE
 function Response(replyToken, message) {
-  // 사용자가 보낸 라인 메시지 문자열 안에 특정 문자열이 있으면, 특정 함수 실행
-  if (message.includes('최신') || message.includes('순위') || message.includes('오늘') || message.includes('추천')) {
-    BoxOffice.ShowYesterdayRank(replyToken);
-  } else if (isNaN(message) === false && message.length === 8) {
-    // (예시) 영화 줄거리 출력
+  if (isNaN(message) === false && message.length === 8) {
     MovieInfo.MovieInfo(replyToken, message);
   }
-  else if (typeof (message) === 'string') {
-    // (예시) 영화 목록 출력
+  else if (message == '0' || message == '0번') {
+    ShowMenu();
+  }
+  else if (message == '1' || message == '1번') {
+    BoxOffice.ShowYesterdayRank(replyToken);
+  }
+  else if ((message == '2' || message == '2번') && flag_2 == 0) {
+    flag_2 = 1;
+    Exception.test_1(replyToken);
+  }
+  else if ((message == '3' || message == '3번') && flag_3 == 0) {
+    flag_3 = 1;
+    Exception.test_2(replyToken);
+  }
+  else if (flag_2 == 1) {
+    flag_2 = 0;
+    MovieReco.movieRecommend(replyToken, message);
+  }
+  else if (flag_3 == 1) {
+    flag_3 = 0;
     MovieList.movielist(replyToken, message);
+  }
+  else {
+    Exception.SayIDontKnow(replyToken);
   }
 }
 

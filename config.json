@@ -1,5 +1,6 @@
 {
     "TOKEN" : "Insert user token value",
     "KOFIC_KEY" : "Insert user key value",
-    "domain" : "Insert user domain"
+    "domain" : "Insert user domain",
+    "USER_ID" : "Insert user id"
 }
