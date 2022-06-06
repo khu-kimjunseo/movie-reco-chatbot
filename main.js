@@ -27,7 +27,7 @@ app.post('/hook', function (req, res) {
   var eventObj = req.body.events[0];
 
   // console.log for debugging
-  console.log('======================', new Date() ,'======================');
+  console.log('======================', new Date(), '======================');
   console.log('[request]', req.body);
   console.log('[request source] ', eventObj.source);
   console.log('[request message]', eventObj.message);
@@ -39,17 +39,17 @@ app.post('/hook', function (req, res) {
 
 
 // RESPONSE TO MESSAGE
-function Response(replyToken, message){
+function Response(replyToken, message) {
   // 사용자가 보낸 라인 메시지 문자열 안에 특정 문자열이 있으면, 특정 함수 실행
-  if(message.includes('최신') || message.includes('순위') || message.includes('오늘') || message.includes('추천')) {
+  if (message.includes('최신') || message.includes('순위') || message.includes('오늘') || message.includes('추천')) {
     BoxOffice.ShowYesterdayRank(replyToken);
   } else if (isNaN(message) === false && message.length === 8) {
-      // (예시) 영화 줄거리 출력
-      MovieInfo.MovieInfo(replyToken, message);
+    // (예시) 영화 줄거리 출력
+    MovieInfo.MovieInfo(replyToken, message);
   }
-  else if (typeof(message) === 'string') {
-      // (예시) 영화 목록 출력
-      MovieList.movielist(replyToken, message);
+  else if (typeof (message) === 'string') {
+    // (예시) 영화 목록 출력
+    MovieList.movielist(replyToken, message);
   }
 }
 
@@ -57,9 +57,9 @@ function Response(replyToken, message){
 // ※ WARNING: DO NOT TOUCH THIS CODE SECTION ※
 try {
   const option = {
-    ca: fs.readFileSync('/etc/letsencrypt/live/' + domain +'/fullchain.pem'),
-    key: fs.readFileSync(path.resolve(process.cwd(), '/etc/letsencrypt/live/' + domain +'/privkey.pem'), 'utf8').toString(),
-    cert: fs.readFileSync(path.resolve(process.cwd(), '/etc/letsencrypt/live/' + domain +'/cert.pem'), 'utf8').toString(),
+    ca: fs.readFileSync('/etc/letsencrypt/live/' + domain + '/fullchain.pem'),
+    key: fs.readFileSync(path.resolve(process.cwd(), '/etc/letsencrypt/live/' + domain + '/privkey.pem'), 'utf8').toString(),
+    cert: fs.readFileSync(path.resolve(process.cwd(), '/etc/letsencrypt/live/' + domain + '/cert.pem'), 'utf8').toString(),
   };
 
   HTTPS.createServer(option, app).listen(sslport, () => {
