@@ -3,9 +3,9 @@ var express = require('express');
 const request = require('request');
 const config = require('./config.json');
 //=============================================================
-const LINE_URL = 'https://api.line.me/v2/bot/message/reply'
+const LINE_REPLY_URL = 'https://api.line.me/v2/bot/message/reply'
 const TOKEN = config.TOKEN;
-const BOXOFFICE_URL = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json'
+const KOFIC_URL = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest'
 const KOFIC_KEY = config.KOFIC_KEY;
 //=============================================================
 
@@ -16,11 +16,10 @@ exports.ShowYesterdayRank = function (replyToken) {
 
     request.get(
         {
-            url: BOXOFFICE_URL + `?key=${KOFIC_KEY}&targetDt=${yesterday}`,
+            url: KOFIC_URL + `/boxoffice/searchDailyBoxOfficeList.json?key=${KOFIC_KEY}&targetDt=${yesterday}`,
             json: true
         }, (error, response, body) => {
             if (!error && response.statusCode == 200) {
-                console.log(body.boxOfficeResult);
 
                 var movieName = [];
                 movieName[0] = body.boxOfficeResult.dailyBoxOfficeList[0].movieNm;
@@ -52,7 +51,7 @@ exports.ShowYesterdayRank = function (replyToken) {
 
                 request.post(
                     {
-                        url: LINE_URL,
+                        url: LINE_REPLY_URL,
                         headers: {
                             'Authorization': `Bearer ${TOKEN}`
                         },
@@ -66,7 +65,8 @@ exports.ShowYesterdayRank = function (replyToken) {
                                         `[2위]\n영화제목 : ${movieName[1]}\n개봉일 : ${movieOpenDt[1]}\n누적 관객 수 : ${movieAudiAcc[1]}명\n영화코드 : ${movieCode[1]}\n\n` +
                                         `[3위]\n영화제목 : ${movieName[2]}\n개봉일 : ${movieOpenDt[2]}\n누적 관객 수 : ${movieAudiAcc[2]}명\n영화코드 : ${movieCode[2]}\n\n` +
                                         `[4위]\n영화제목 : ${movieName[3]}\n개봉일 : ${movieOpenDt[3]}\n누적 관객 수 : ${movieAudiAcc[3]}명\n영화코드 : ${movieCode[3]}\n\n` +
-                                        `[5위]\n영화제목 : ${movieName[4]}\n개봉일 : ${movieOpenDt[4]}\n누적 관객 수 : ${movieAudiAcc[4]}명\n영화코드 : ${movieCode[4]}`
+                                        `[5위]\n영화제목 : ${movieName[4]}\n개봉일 : ${movieOpenDt[4]}\n누적 관객 수 : ${movieAudiAcc[4]}명\n영화코드 : ${movieCode[4]}\n\n` +
+                                        `영화 상세 정보를 조회하시려면, 영화코드를 입력해주세요.`
                                 }
                             ]
                         }
