@@ -41,7 +41,7 @@ function weekendBoxOfficeMovie() {
 }
 //Returns the title, year of release, names of directors and actors.
 //The return format is array and index is as follows:
-//[title, year of release, director, actor1, actor2]
+//[title, year of release, director, actor1, actor2, moviecode]
 async function movieinfo(message){
     moviecdlist = await weekendBoxOfficeMovie();
     
@@ -77,9 +77,10 @@ async function movieinfo(message){
                             var actor_1 = body.movieInfoResult.movieInfo.actors[0].peopleNm
                             var actor_2 = body.movieInfoResult.movieInfo.actors[1].peopleNm
                         }
-                        movieresult.push([title, openyear, director, actor_1, actor_2])
+                        var moviecode_rc = body.movieInfoResult.movieInfo.movieCd
+                        movieresult.push([title, openyear, director, actor_1, actor_2, moviecode_rc])
 
-                    } //제목, 개봉년도, 감독, 배우1, 배우2
+                    } //제목, 개봉년도, 감독, 배우1, 배우2, 영화코드
                 }
                 resolve(movieresult);
                 }
@@ -89,7 +90,7 @@ async function movieinfo(message){
 }
 
 //Enter a movie genre in the message variable.
-//It will then return movie title, year of release, director and actor information to Line Messenger.
+//It will then return movie title, year of release, director, actor and moviecode information to Line Messenger.
 exports.movieRecommend = async function(replyToken, message){
     var movieresult = [];
     while(1){
@@ -103,7 +104,7 @@ exports.movieRecommend = async function(replyToken, message){
     }
     var movierecommend_output = '';
     for(let i = 0; i < movieresult.length; i++){
-        movierecommend_output += `제목: ${movieresult[i][0]}(${movieresult[i][1]})\n감독: ${movieresult[i][2]}\n배우: ${movieresult[i][3]}, ${movieresult[i][4]}\n`
+        movierecommend_output += `제목: ${movieresult[i][0]}(${movieresult[i][1]})\n감독: ${movieresult[i][2]}\n배우: ${movieresult[i][3]}, ${movieresult[i][4]}\n영화코드: ${movieresult[i][5]}`
     }
     request.post(
         {
