@@ -35,7 +35,7 @@ function ShowMenu() {
       'Authorization': `Bearer ${TOKEN}`
     },
     json: {
-      "to": `${USER_ID}`,
+      "to": `${user_id}`,
       "messages": [
         {
           "type": "text",
