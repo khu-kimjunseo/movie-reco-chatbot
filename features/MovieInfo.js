@@ -1,7 +1,7 @@
 //=============================================================
 var express = require('express');
 const request = require('request');
-const config = require('./config.json');
+const config = require('../config.json');
 //=============================================================
 const LINE_URL = 'https://api.line.me/v2/bot/message/reply'
 const TOKEN = config.TOKEN;

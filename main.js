@@ -17,11 +17,11 @@ const bodyParser = require('body-parser');
 var app = express();
 app.use(bodyParser.json());
 //=============================================================
-var BoxOffice = require('./DailyBoxOfficeList.js');
-var MovieList = require('./MovieList.js');
-var MovieInfo = require('./MovieInfo.js');
-var MovieReco = require('./MovieRecommend.js');
-var Exception = require('./Exception.js');
+var BoxOffice = require('./features/DailyBoxOfficeList.js');
+var MovieList = require('./features/MovieList.js');
+var MovieInfo = require('./features/MovieInfo.js');
+var MovieReco = require('./features/MovieRecommend.js');
+var Exception = require('./features/Exception.js');
 //=============================================================
 const user_id = config.USER_ID;
 //=============================================================

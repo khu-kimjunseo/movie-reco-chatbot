@@ -1,6 +1,6 @@
 var express = require('express');
 const request = require('request');
-var config = require('./config.json');
+var config = require('../config.json');
 const TARGET_URL = 'https://api.line.me/v2/bot/message/reply'
 const TOKEN = config.TOKEN;
 const KOFIC_URL = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest'
