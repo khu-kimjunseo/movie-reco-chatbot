@@ -94,6 +94,7 @@ function Response(replyToken, message) {
   }
   else {
     Exception.SayIDontKnow(replyToken);
+    ShowMenu();
   }
 }
 
