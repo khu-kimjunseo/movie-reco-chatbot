@@ -15,15 +15,52 @@
 * [영화진흥위원회 API](https://www.kobis.or.kr)
 * [LINE Messaging API](https://developers.line.biz/en/services/messaging-api/)
 
-## Prerequisites
+<!-- GETTING STARTED -->
+## Getting Started
 
-## Installation
+This is an example of how you may give instructions on setting up your project locally.
+To get a local copy up and running follow these simple example steps.
 
+### Prerequisites
+
+This is an example of how to list things you need to use the software and how to install them.
+* npm
+  ```sh
+  npm install npm@latest -g
+  ```
+
+### Installation
+
+_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+
+1. Get a free API Key at [https://example.com](https://example.com)
+2. Clone the repo
+   ```sh
+   git clone https://github.com/your_username_/Project-Name.git
+   ```
+3. Install NPM packages
+   ```sh
+   npm install
+   ```
+4. Enter your API in `config.js`
+   ```js
+   const API_KEY = 'ENTER YOUR API';
+   ```
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
+Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
+<!-- ROADMAP -->
+## Roadmap
+- [x] Add Changelog
+- [x] Add back to top links
+- [ ] Add Additional Templates w/ Examples
+- [ ] Add "components" document to easily copy & paste sections of the readme
+- [ ] Multi-language Support
+    - [ ] Chinese
+    - [ ] Spanish
 
 
 <!-- CONTRIBUTING -->
@@ -37,7 +74,7 @@ If you have a suggestion that would make this better, please fork the repo and c
 5. Open a Pull Request
 
 ## License
-MIT License
+Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <!-- CONTACT -->
 ## Contact
