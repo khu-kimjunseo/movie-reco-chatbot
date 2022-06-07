@@ -24,19 +24,19 @@
 1. [영화진흥위원회 API](https://www.kobis.or.kr/kobisopenapi/homepg/main/main.do)에서 무료 API 키를 발급 받습니다.
 2. 리포지토리를 클론합니다.
 
-    git clone http://khuhub.khu.ac.kr/2018104006/movie-reco-chatbot.git
+    `git clone http://khuhub.khu.ac.kr/2018104006/movie-reco-chatbot.git`
     
 3. NPM packages 설치합니다.
     
-    npm install
+    `npm install`
     
 4. `config.json` 파일 안에 발급받은 API 키를 추가합니다.
     
-    "KOFIC_KEY" : "Insert user key value";
+    `"KOFIC_KEY" : "Insert user key value";`
     
 5. 라인 어플리케이션에서 챗봇을 친구로 추가합니다.
     
-    Chatbot ID :  @093sjoog
+    `Chatbot ID :  @093sjoog`
     
 <div align="center"><img src="./images/QRcode.png" width="20%" height="20%"></div>
    

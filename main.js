@@ -28,9 +28,9 @@ const user_id = config.USER_ID;
 
 
 // SHOW MENU
-function ShowMenu() {
+function ShowMenu(replyToken) {
   request.post({
-    url: LINE_URL + '/push',
+    url: LINE_URL + '/reply',
     headers: {
       'Authorization': `Bearer ${TOKEN}`
     },
@@ -71,7 +71,7 @@ function Response(replyToken, message) {
     MovieInfo.MovieInfo(replyToken, message);
   }
   else if (message == '0' || message == '0번') {
-    ShowMenu();
+    ShowMenu(replyToken);
   }
   else if (message == '1' || message == '1번') {
     BoxOffice.ShowYesterdayRank(replyToken);
