@@ -28,11 +28,7 @@ const user_id = config.USER_ID;
 
 
 // SHOW MENU
-<<<<<<< HEAD
 function ShowMenu(replyToken) {
-=======
-function ShowMenu(replyeToken) {
->>>>>>> 540e801ecd8d88e2733b5a89c69473c69ed530f3
   request.post({
     url: LINE_URL + '/reply',
     headers: {
@@ -73,11 +69,7 @@ function Response(replyToken, message) {
     MovieInfo.MovieInfo(replyToken, message);
   }
   else if (message == '0' || message == '0번') {
-<<<<<<< HEAD
     ShowMenu(replyToken);
-=======
-    ShowMenu(replyeToken);
->>>>>>> 540e801ecd8d88e2733b5a89c69473c69ed530f3
   }
   else if (message == '1' || message == '1번') {
     BoxOffice.ShowYesterdayRank(replyToken);
