@@ -17,52 +17,38 @@
 * [영화진흥위원회 API](https://www.kobis.or.kr)
 * [LINE Messaging API](https://developers.line.biz/en/services/messaging-api/)
 
-<!-- GETTING STARTED -->
-## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+## Installation
 
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
-### Installation
-
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. 무료 API 키를 발급 받습니다. [영화진흥위원회 API](https://www.kobis.or.kr/kobisopenapi/homepg/main/main.do)
+2. 리포지토리를 클론합니다.
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone http://khuhub.khu.ac.kr/2018104006/movie-reco-chatbot.git
    ```
-3. Install NPM packages
+3. NPM packages 설치합니다.
    ```sh
    npm install
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+4. `config.json` 파일 안에 발급받은 API 키를 추가합니다.
+   ```json
+   "KOFIC_KEY" : "Insert user key value";
+   ```
+5. 라인 어플리케이션에서 챗봇을 친구로 추가합니다.
+   ```
+   Chatbot ID :  @093sjoog
+   <div align="center"><img src="./images/QRcode.png" width="20%" height="20%"></div>
    ```
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-<!-- ROADMAP -->
-## Roadmap
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
+다음 명령을 입력하여 프로그램을 실행합니다.
+   ```sh
+   npm start
+   ```
+1. 최신 영화 추천 받기 : 어제 날짜를 기준으로 최신 영화를 추천 받습니다.
+2. 장르별 영화 추천 받기 : 장르를 선택하여, 해당 장르 영화를 추천 받습니다.
+3. 영화 검색하기 : 특정 단어를 입력하면, 해당 단어를 제목에 포함하고 있는 영화목록을 출력합니다.
+4. 영화 상세검색 : 영화 코드를 입력하면, 해당 영화에 대한 상세 정보를 조회할 수 있습니다.
 
 
 <!-- CONTRIBUTING -->
@@ -75,8 +61,11 @@ If you have a suggestion that would make this better, please fork the repo and c
 4. Push to the Branch 
 5. Open a Pull Request
 
+
+<!-- LICENSE -->
 ## License
 Distributed under the MIT License. See `LICENSE.txt` for more information.
+
 
 <!-- CONTACT -->
 ## Contact
@@ -85,4 +74,4 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 * 백승욱 : bpsswu@khu.ac.kr
 * 문성준: hoynola@khu.ac.kr 
 
-* Project Link : http://khuhub.khu.ac.kr/2018103692/find_mbti_bot
+* Project Link : http://khuhub.khu.ac.kr/2018104006/movie-reco-chatbot
