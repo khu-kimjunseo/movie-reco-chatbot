@@ -28,7 +28,7 @@ const user_id = config.USER_ID;
 
 
 // SHOW MENU
-function ShowMenu() {
+function ShowMenu(replyeToken) {
   request.post({
     url: LINE_URL + '/push',
     headers: {
@@ -47,8 +47,6 @@ function ShowMenu() {
     console.log(body)
   });
 }
-
-ShowMenu();
 
 
 // RECEIVE MESSAGE
@@ -71,7 +69,7 @@ function Response(replyToken, message) {
     MovieInfo.MovieInfo(replyToken, message);
   }
   else if (message == '0' || message == '0번') {
-    ShowMenu();
+    ShowMenu(replyeToken);
   }
   else if (message == '1' || message == '1번') {
     BoxOffice.ShowYesterdayRank(replyToken);
@@ -94,7 +92,7 @@ function Response(replyToken, message) {
   }
   else {
     Exception.SayIDontKnow(replyToken);
-    ShowMenu();
+    ShowMenu(replyeToken);
   }
 }
 
