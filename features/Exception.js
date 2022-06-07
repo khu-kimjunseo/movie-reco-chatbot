@@ -20,6 +20,10 @@ exports.SayIDontKnow = function (replyToken) {
                     {
                         "type": "text",
                         "text": "이해하지 못했습니다."
+                    },
+                    {
+                        "type": "text",
+                        "text": "[0번 입력] : 메뉴 출력\n[1번 입력] : 최신영화 추천\n[2번 입력] : 장르별 영화 추천\n[3번 입력] : 영화 검색하기\n**영화코드 입력 : 영화 상세정보 조회"
                     }
                 ]
             }
