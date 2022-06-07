@@ -28,7 +28,7 @@ exports.SayIDontKnow = function (replyToken) {
         });
 }
 
-exports.test_1 = function (replyToken) {
+exports.ShowGenre = function (replyToken) {
     request.post(
         {
             url: LINE_URL + '/reply',
@@ -40,7 +40,8 @@ exports.test_1 = function (replyToken) {
                 "messages": [
                     {
                         "type": "text",
-                        "text": "영화 장르를 선택해주세요."
+                        "text": "다음 영화 장르 중 하나를 선택해주세요.\n"+
+                        "드라마 / 코미디 / 액션 / 멜로/로맨스 / 스릴러 / 미스터리 / 공포(호러) / 어드벤처 / 범죄 / 가족 / 판타지 / SF / 사극 / 애니메이션 / 다큐멘터리 / 전쟁 / 뮤지컬 / 기타"
                     }
                 ]
             }
@@ -49,7 +50,7 @@ exports.test_1 = function (replyToken) {
         });
 }
 
-exports.test_2 = function (replyToken) {
+exports.ShowSearch = function (replyToken) {
     request.post(
         {
             url: LINE_URL + '/reply',

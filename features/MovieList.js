@@ -27,7 +27,7 @@ exports.movielist = function (replyToken, message) {
                     else{
                         directors = body.movieListResult.movieList[i].directors[0].peopleNm;
                     }
-                    result += '제목: ' + movieNm + `(${prdtYear})` + '\n' + '감독: ' + directors +  '\n' + '영화코드: ' + movieCd + '\n';
+                    result += '제목: ' + movieNm + `(${prdtYear})` + '\n' + '감독: ' + directors +  '\n' + '영화코드: ' + movieCd + '\n\n';
                 }
                 request.post(
                     {

@@ -44,7 +44,7 @@ exports.MovieInfo = function(replyToken, message) {
                             "messages":[
                                 {
                                     "type":"text",
-                                    "text":`영화명: ${MovieName}\n개봉날짜: ${MovieDate}\n상영시간: ${MovieTime}분\n장르: ${MovieGenres}\n감독: ${MovieDirec}\n출연배우: ${MovieActors}`
+                                    "text":`[영화명]: ${MovieName}\n[개봉날짜]: ${MovieDate}\n[상영시간]: ${MovieTime}분\n[장르]: ${MovieGenres}\n[감독]: ${MovieDirec}\n[출연배우]: ${MovieActors}`
                                 }
                             ]
                         }

@@ -39,7 +39,7 @@ function ShowMenu() {
       "messages": [
         {
           "type": "text",
-          "text": "0번 입력 : 메뉴 출력\n1번 입력 : 최신영화 추천\n2번 입력 : 장르별 영화 추천\n3번 입력 : 영화 검색하기\n**영화코드 입력 : 영화 상세정보 조회"
+          "text": "[0번 입력] : 메뉴 출력\n[1번 입력] : 최신영화 추천\n[2번 입력] : 장르별 영화 추천\n[3번 입력] : 영화 검색하기\n**영화코드 입력 : 영화 상세정보 조회"
         }
       ]
     }
@@ -78,11 +78,11 @@ function Response(replyToken, message) {
   }
   else if ((message == '2' || message == '2번') && flag_2 == 0) {
     flag_2 = 1;
-    Exception.test_1(replyToken);
+    Exception.ShowGenre(replyToken);
   }
   else if ((message == '3' || message == '3번') && flag_3 == 0) {
     flag_3 = 1;
-    Exception.test_2(replyToken);
+    Exception.ShowSearch(replyToken);
   }
   else if (flag_2 == 1) {
     flag_2 = 0;
