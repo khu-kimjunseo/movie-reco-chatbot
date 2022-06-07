@@ -104,7 +104,7 @@ exports.movieRecommend = async function(replyToken, message){
     }
     var movierecommend_output = '';
     for(let i = 0; i < movieresult.length; i++){
-        movierecommend_output += `제목: ${movieresult[i][0]}(${movieresult[i][1]})\n감독: ${movieresult[i][2]}\n배우: ${movieresult[i][3]}, ${movieresult[i][4]}\n영화코드: ${movieresult[i][5]}`
+        movierecommend_output += `제목: ${movieresult[i][0]}(${movieresult[i][1]})\n감독: ${movieresult[i][2]}\n배우: ${movieresult[i][3]}, ${movieresult[i][4]}\n영화코드: ${movieresult[i][5]}\n\n`
     }
     request.post(
         {
