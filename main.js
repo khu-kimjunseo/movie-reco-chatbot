@@ -30,7 +30,7 @@ const user_id = config.USER_ID;
 // SHOW MENU
 function ShowMenu(replyeToken) {
   request.post({
-    url: LINE_URL + '/push',
+    url: LINE_URL + '/reply',
     headers: {
       'Authorization': `Bearer ${TOKEN}`
     },
